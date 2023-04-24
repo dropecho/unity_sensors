@@ -10,13 +10,6 @@ namespace Dropecho {
 
     private Collider[] _hits = new Collider[256];
 
-    private static int count;
-
-    void Awake() {
-      this.onDetection.AddListener((go) => { count++; });
-      this.onDetectionLoss.AddListener((go) => { count--; });
-    }
-
     public bool IsInView(GameObject obj) => sensedObjects.Contains(obj);
     protected override void DetectObjects() {
       var hitCount = Physics.OverlapSphereNonAlloc(transform.position, range, _hits, detectionLayers);
