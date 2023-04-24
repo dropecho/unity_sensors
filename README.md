@@ -1,5 +1,9 @@
 Sensors
 
+## Heads up
+
+This is "beta ish" so if it does weird stuff (or the utils package does), just remove them and you should be back to original state and create an issue here.
+
 ## Install
 To use this, install it through the package manager.
 
