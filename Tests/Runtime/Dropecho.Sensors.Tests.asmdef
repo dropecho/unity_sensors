@@ -1,0 +1,11 @@
+{
+  "name": "Dropecho.Sensors.tests",
+  "references": [
+    "Dropecho.Sensors"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}

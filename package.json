@@ -1,0 +1,12 @@
+{
+    "name": "com.dropecho.sensors",
+    "version": "0.1.0",
+    "displayName": "Dropecho Sensors",
+    "description": "Sensors for AI or misc.",
+    "author": "Dropecho <vantreeseba@gmail.com> (http://github.com/dropecho/unity_sensors)",
+    "repository": "github:dropecho/unity_sensors",
+    "license": "MIT",
+    "dependencies": {
+        "com.dropecho.utils": "0.3.1"
+    }
+}

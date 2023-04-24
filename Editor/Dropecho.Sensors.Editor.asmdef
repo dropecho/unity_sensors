@@ -1,0 +1,20 @@
+{
+    "name": "Dropecho.Sensors.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9851152f38fc1d14ea66ac5cf545099a",
+        "GUID:bd72aa0b1f4a4431acd9530b92277e0d",
+        "GUID:7c02a4ec59d9dcc4b8ea7db6a03ddead"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
