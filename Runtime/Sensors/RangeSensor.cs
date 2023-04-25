@@ -32,7 +32,9 @@ namespace Dropecho {
       // Add or remove objects from sensed, as needed.
       for (var i = 0; i < hitCount; i++) {
         var obj = _hits[i].gameObject;
-        
+
+        var isValidTarget = Detectors.IsValidTarget(gameObject, _hits[i], obstructionLayers);
+
         if (isValidTarget) {
           if (!sensedObjects.Contains(obj)) {
             sensedObjects.Add(obj);
@@ -46,7 +48,7 @@ namespace Dropecho {
       // Check if the existing objects in the list are still within the collider.
       for (var i = sensedObjects.Count - 1; i >= 0; i--) {
         var hitIndex = Array.IndexOf(_hits, sensedObjects[i].GetComponent<Collider>());
-        
+
         if (hitIndex < 0 || hitIndex >= hitCount) {
           onDetectionLoss?.Invoke(sensedObjects[i]);
           sensedObjects.RemoveAt(i);

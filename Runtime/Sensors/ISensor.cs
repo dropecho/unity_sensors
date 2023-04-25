@@ -61,23 +61,22 @@ namespace Dropecho {
       Tooltip("This is the rate at which the sensor updated when in Rate update mode.")
     ]
     public float updateRate { get; private set; } = 0.5f;
-    // void OnEnable() => StartCoroutine(UpdateCR());
-    void Update() => DetectObjects();
+    void OnEnable() => StartCoroutine(UpdateCR());
 
-    // YieldInstruction GetUpdateTimingForMode() {
-    //   return updateMode switch {
-    //     SensorUpdateMode.Rate => new WaitForSeconds(updateRate),
-    //     SensorUpdateMode.FixedUpdate => new WaitForFixedUpdate(),
-    //     _ => null
-    //   };
-    // }
+    YieldInstruction GetUpdateTimingForMode() {
+      return updateMode switch {
+        SensorUpdateMode.Rate => new WaitForSeconds(updateRate),
+        SensorUpdateMode.FixedUpdate => new WaitForFixedUpdate(),
+        _ => null
+      };
+    }
 
-    // IEnumerator UpdateCR() {
-    //   while (true) {
-    //     DetectObjects();
-    //     yield return GetUpdateTimingForMode();
-    //   }
-    // }
+    IEnumerator UpdateCR() {
+      while (true) {
+        DetectObjects();
+        yield return GetUpdateTimingForMode();
+      }
+    }
 
     protected abstract void DetectObjects();
   }
