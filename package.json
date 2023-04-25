@@ -8,5 +8,10 @@
     "license": "MIT",
     "dependencies": {
         "com.dropecho.utils": "0.3.1"
-    }
+    },
+    "samples": [{
+        "displayName": "Demo",
+        "description": "Contains a simple demo showing the sensors.",
+        "path": "Samples~/Demo"
+    }]
 }

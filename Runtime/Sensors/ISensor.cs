@@ -13,7 +13,7 @@ namespace Dropecho {
   }
 
   public interface ISensor {
-    IList<GameObject> sensedObjects { get; }
+    List<GameObject> sensedObjects { get; }
     GameObject GetClosestDetectedObject();
 
     UnityEvent<GameObject> onDetection { get; }
@@ -21,7 +21,7 @@ namespace Dropecho {
   }
 
   public abstract class Sensor : MonoBehaviour, ISensor {
-    public IList<GameObject> sensedObjects { get; private set; } = new List<GameObject>();
+    public List<GameObject> sensedObjects { get; private set; } = new List<GameObject>();
 
     [field: SerializeField]
     public UnityEvent<GameObject> onDetection { get; set; }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Dropecho {
@@ -19,6 +21,7 @@ namespace Dropecho {
     public Vector3 offset;
 
     private Collider[] _hits = new Collider[256];
+    private HashSet<Collider> objs = new HashSet<Collider>(256);
 
     protected override void DetectObjects() {
       var hitCount = shape switch {
@@ -32,27 +35,28 @@ namespace Dropecho {
       // Add or remove objects from sensed, as needed.
       for (var i = 0; i < hitCount; i++) {
         var obj = _hits[i].gameObject;
-
-        var isValidTarget = Detectors.IsValidTarget(gameObject, _hits[i], obstructionLayers);
-
-        if (isValidTarget) {
-          if (!sensedObjects.Contains(obj)) {
-            sensedObjects.Add(obj);
+        if (Detectors.IsValidTarget(gameObject, _hits[i], obstructionLayers)) {
+          if (objs.Add(_hits[i])) {
             onDetection?.Invoke(obj);
           }
-        } else if (sensedObjects.Remove(obj)) {
-          onDetectionLoss?.Invoke(obj);
+        } else {
+          if (objs.Remove(_hits[i])) {
+            onDetectionLoss?.Invoke(obj);
+          }
         }
       }
 
-      // Check if the existing objects in the list are still within the collider.
-      for (var i = sensedObjects.Count - 1; i >= 0; i--) {
-        var hitIndex = Array.IndexOf(_hits, sensedObjects[i].GetComponent<Collider>());
+      objs.IntersectWith(new ArraySegment<Collider>(_hits, 0, hitCount));
 
-        if (hitIndex < 0 || hitIndex >= hitCount) {
-          onDetectionLoss?.Invoke(sensedObjects[i]);
-          sensedObjects.RemoveAt(i);
+      foreach (var sensed in sensedObjects) {
+        if (!objs.Contains(sensed.GetComponent<Collider>())) {
+          onDetectionLoss?.Invoke(sensed);
         }
+      }
+
+      sensedObjects.Clear();
+      foreach (var obj in objs) {
+        sensedObjects.Add(obj.gameObject);
       }
     }
   }
